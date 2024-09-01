@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { API_BASE_URL } from "../../apiConfig/apiConfig";
+import { api, API_BASE_URL } from "../../apiConfig/apiConfig";
 import { GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "./constant";
 
 const registerRequest = () => ({ type: REGISTER_REQUEST });
@@ -31,7 +31,7 @@ const loginFailure = (error) => ({ type: LOGIN_FAILURE, payload: error });
 export const login = (userData) => async (dispatch) => {
   dispatch(loginRequest());
   try {
-    const response = await axios.post(`${API_BASE_URL}/auth/signin`, userData);
+    const response = await api.post(`/auth/signin`, userData);
     const data = response.data;
     console.log(data);
     
@@ -54,11 +54,7 @@ export const getUserProfile = () => async (dispatch) => {
   const token = localStorage.getItem('jwt');
   dispatch(getUserRequest());
   try {
-    const response = await axios.get(`${API_BASE_URL}/api/users/profile`,{
-        headers:{
-            "Authorization": `Bearer ${token}`
-        }
-    });
+    const response = await api.get(`/api/users/profile`);
     const user = response.data;
     console.log(user);
     
