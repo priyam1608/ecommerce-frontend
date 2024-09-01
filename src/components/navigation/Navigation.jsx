@@ -75,9 +75,10 @@ export default function Navigation() {
     <div className="bg-white">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
+        <Dialog as="div" className="relative z-40 lg:hidden" onClose={()=>setOpen(false)}>
           <Transition
             as={Fragment}
+            show={open}
             enter="transition-opacity ease-linear duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -91,6 +92,7 @@ export default function Navigation() {
           <div className="fixed inset-0 z-40 flex">
             <Transition.Child
               as={Fragment}
+              show={open}
               enter="transition ease-in-out duration-300 transform"
               enterFrom="-translate-x-full"
               enterTo="translate-x-0"
@@ -183,7 +185,7 @@ export default function Navigation() {
                               {section.items.map((item) => (
                                 <li key={item.name} className="flow-root">
                                   <p className="-m-2 block p-2 text-gray-500">
-                                    {"item.name"}
+                                    {item.name}
                                   </p>
                                 </li>
                               ))}
@@ -289,6 +291,7 @@ export default function Navigation() {
 
                           <Transition
                             as={Fragment}
+                            show={open}
                             enter="transition ease-out duration-200"
                             enterFrom="opacity-0"
                             enterTo="opacity-100"
